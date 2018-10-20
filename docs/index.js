@@ -1,1 +1,535 @@
-!function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},t.t=function(e,r){if(1&r&&(e=t(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var o in e)t.d(n,o,function(r){return e[r]}.bind(null,o));return n},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p="",t(t.s=0)}([function(e,r,t){(function(e){var r=t(2),n="undefined"!=typeof window?window:void 0!==e?e:"undefined"!=typeof self?self:{};if(!(o=n.betterJs)){var o;(o=new function(){}).init=function(t){if(t.errorMonitor){console.log("错误监控执行了");var n=r.objectMerge({jsError:!0,resourceError:!0,ajaxError:!0,consoleError:!1,scriptError:!1,vue:!1,autoReport:!0,filters:[],levels:["info","warning","error"],category:["js","resource","ajax"]},t);n.scriptError||n.filters.push(function(){return/^Script error\.?$/.test(arguments[0])});var i=n.sendError;n.sendError=function(e,t,o,a,s){try{if(n.filters.some(e=>r.isFunction(e)&&e.apply(this,arguments)))return;if(i.apply(this,arguments),n.autoReport)return}catch(e){i({title:"betterJs",msg:e,category:"js"})}};var a="undefined"!=typeof window?window:void 0!==e?e:"undefined"!=typeof self?self:{},s=a.addEventListener||a.attachEvent;n.jsError&&r.handleWindowError(a,n),n.jsError&&r.handleRejectPromise(a,n),n.resourceError&&s&&r.handleResourceError(a,n),n.ajaxError&&r.handleAjaxError(a,n),n.consoleError&&r.handleConsoleError(a,n),n.vue&&r.handleVueError(a,n)}t.performanceMonitor&&(console.log("性能监控执行了"),window.addEventListener("load",()=>{var e=setInterval(()=>{var r=window.performance&&window.performance.timing,n=window.performance&&window.performance.navigation,o={redirectNums:0,redirecttime:0,DNSAnalyseTime:0,TCPHandshakeTime:0,httpRequestResTime:0,domStartLoadingTime:0,domFinishLoadingTime:0,domAnalysisCompletionTime:0,scriptLoadingTime:0,onLoadEventTime:0,pageFinishLoadingTime:0};o={};(r.loadEventEnd-r.loadEventStart)/1e3>0&&(o.redirectNums=n&&n.redirectCount,o.redirecttimeredirecttime=(r.redirectEnd-r.redirectStart)/1e3,o.DNSAnalyseTime=(r.domainLookupEnd-r.domainLookupStart)/1e3,o.TCPHandshakeTime=(r.connectEnd-r.connectStart)/1e3,o.httpRequestResTime=(r.responseEnd-r.requestStart)/1e3,o.domStartLoadingTime=(r.responseEnd-r.navigationStart)/1e3,o.domFinishLoadingTime=(r.domComplete-r.domLoading)/1e3,o.domAnalysisCompletionTime=(r.domInteractive-r.domLoading)/1e3,o.scriptLoadingTime=(r.domContentLoadedEventEnd-r.domContentLoadedEventStart)/1e3,o.onLoadEventTime=(r.loadEventEnd-r.loadEventStart)/1e3,o.pageFinishLoadingTime=o.redirecttime+o.DNSAnalyseTime+o.TCPHandshakeTime+o.httpRequestResTime+o.domAnalysisCompletionTime+o.domFinishLoadingTime,o.url=window.location.href,clearInterval(e),t.sendPerformance(o))},1e3)}));var c={},d=document.scripts;d[d.length-1].src.split("?")[1].split("&").forEach(e=>{c[e.split("=")[0]]=e.split("=")[1]}),o.init({vue:c.vue,errorMonitor:c.errorMonitor,performanceMonitor:c.performanceMonitor,sendError:function(e){e.application=window.navigator.userAgent,$.ajax({xhrFields:{withCredentials:!0},type:"post",data:{date:(new Date).getTime(),projectId:c.projectId,name:c.name,eventId:e.msg.eventId||"",error:JSON.stringify(e)},async:!1,url:c.errorUrl,dataType:"json",success:function(e){if(e.ok)return e;throw new Error(e.status+":"+e.statusText)},error:function(e){throw new Error(e.status+":"+e.statusText)}})},sendPerformance:function(e){$.ajax({xhrFields:{withCredentials:!0},type:"post",data:{date:(new Date).getTime(),projectId:c.projectId,name:c.name,url:e.url,performance:JSON.stringify(e)},async:!1,url:c.performanceError,dataType:"json",success:function(e){if(e.ok)return e;throw new Error(e.status+":"+e.statusText)},error:function(e){throw new Error(e.status+":"+e.statusText)}})}})}}n.betterJs=o}).call(this,t(1))},function(e,r){var t;t=function(){return this}();try{t=t||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(t=window)}e.exports=t},function(e,r){function t(e){return"function"==typeof e}function n(e,r){return Object.prototype.hasOwnProperty.call(e,r)}e.exports={isFunction:t,objectMerge:function(e,r){return r?(function(e,r){var t,o;if(function(e){return void 0===e}(e.length))for(t in e)n(e,t)&&r.call(null,t,e[t]);else if(o=e.length)for(t=0;t<o;t++)r.call(null,t,e[t])}(r,function(r,t){e[r]=t}),e):e},handleWindowError:function(e,r){_oldWindowError=e.onerror,e.onerror=function(e,n,o,i,a){var s=`${n}${o}${i}`;a&&a.stack?r.sendError({title:e,msg:{resourceUrl:n,rowNum:o,colNum:i,info:a.stack,filename:n,eventId:s},category:"js",level:"error"}):"string"==typeof e&&r.sendError({title:e,msg:{resourceUrl:n,rowNum:o,colNum:i,info:a.stack,userAgent:a.target.userAgent,filename:n,eventId:s},category:"js",level:"error"}),_oldWindowError&&t(_oldWindowError)&&windowError&&windowError.apply(window,arguments)}},handleRejectPromise:function(e,r){e.addEventListener("unhandledrejection",function(e){if(e){var t=e.reason;r.sendError({title:"unhandledrejection",msg:t,category:"js",level:"error"})}},!0)},handleConsoleError:function(e,r){if(e.console&&e.console.error){var t=e.console.error;e.console.error=function(){r.sendError({title:"consoleError",msg:JSON.stringify(arguments.join(",")),category:"js",level:"error"}),t&&t.apply(e,arguments)}}},handleResourceError:function(e,r){e.addEventListener("error",function(e){if(e){var t=e.target||e.srcElement;if(!(t instanceof HTMLScriptElement||t instanceof HTMLLinkElement||t instanceof HTMLImageElement))return;var n=t.src||t.href;r.sendError({title:t.nodeName,msg:{url:n,eventId:n},category:"resource",level:"error"})}},!0)},handleAjaxError:function(e,r){if("file:"!==e.location.protocol&&(function(e,r){if(!e.fetch)return;let t=e.fetch;e.fetch=function(){return t.apply(this,arguments).then(e=>(e.ok||r.sendError({title:arguments[0],msg:e,category:"ajax",level:"error"}),e)).catch(e=>{throw r.sendError({title:arguments[0],msg:{message:e.message,stack:e.stack},category:"ajax",level:"error"}),e})}}(e,r),e.XMLHttpRequest)){var t=e.XMLHttpRequest,n=t.prototype.send,o=function(e){e&&e.currentTarget&&200!==e.currentTarget.status&&r.sendError({title:e.target.responseURL,msg:{response:e.target.response,responseURL:e.target.responseURL,status:e.target.status,statusText:e.target.statusText,eventId:e.target.responseURL},category:"ajax",level:"error"})};t.prototype.send=function(){if(this.addEventListener)this.addEventListener("error",o),this.addEventListener("load",o),this.addEventListener("abort",o);else{var e=this.onreadystatechange;this.onreadystatechange=function(r){4===this.readyState&&o(r),e&&e.apply(this,arguments)}}return n.apply(this,arguments)}}},handleVueError:function(e,r){var n=e.Vue;if(n&&n.config){var o=n.config.errorHandler;Vue.config.errorHandler=function(e,n,i){var a={};"[object Object]"===Object.prototype.toString.call(n)&&(a.componentName=n._isVue?n.$options.name||n.$options._componentTag:n.name,a.propsData=n.$options.propsData),r.sendError({title:"vue Error",msg:{meta:a,info:i},category:"js",level:"error"}),o&&t(o)&&_oldOnError.call(this,e,n,i)}}}}}]);
+function isFunction(what) {
+  return typeof what === 'function';
+}
+
+function isUndefined(what) {
+  return what === void 0;
+}
+
+function hasKey(object, key) {
+  return Object.prototype.hasOwnProperty.call(object, key);
+}
+
+function each(obj, callback) {
+  var i, j;
+
+  if (isUndefined(obj.length)) {
+    for (i in obj) {
+      if (hasKey(obj, i)) {
+        callback.call(null, i, obj[i]);
+      }
+    }
+  } else {
+    j = obj.length;
+    if (j) {
+      for (i = 0; i < j; i++) {
+        callback.call(null, i, obj[i]);
+      }
+    }
+  }
+}
+
+function objectMerge(obj1, obj2) {
+  if (!obj2) {
+    return obj1;
+  }
+  each(obj2, function (key, value) {
+    obj1[key] = value;
+  });
+  return obj1;
+}
+
+var handleWindowError = function (_window, config) {
+  _oldWindowError = _window.onerror;
+  _window.onerror = function (msg, url, line, col, error) {
+    console.log(error);
+    var eventId = `${url}${line}${col}`
+    if (error && error.stack) {
+      config.sendError({
+        title: msg,
+        msg: {
+          resourceUrl: url,
+          rowNum: line,
+          colNum: col,
+          info: error,
+          filename: url,
+          eventId: eventId,
+        },
+        category: 'js',
+        level: 'error'
+      });
+    } else if (typeof msg === 'string') {
+      config.sendError({
+        title: msg,
+        msg: {
+          resourceUrl: url,
+          rowNum: line,
+          colNum: col,
+          info: error,
+          userAgent: error.target.userAgent,
+          filename: url,
+          eventId,
+        },
+        category: 'js',
+        level: 'error'
+      });
+    }
+    if (_oldWindowError && isFunction(_oldWindowError)) {
+      windowError && windowError.apply(window, arguments);
+    }
+  }
+
+}
+
+var handleRejectPromise = function (_window, config) {
+  _window.addEventListener('unhandledrejection', function (event) {
+    if (event) {
+      var reason = event.reason;
+      config.sendError({
+        title: 'unhandledrejection',
+        msg: reason,
+        category: 'js',
+        level: 'error'
+      });
+    }
+  }, true);
+}
+
+var handleResourceError = function (_window, config) {
+  _window.addEventListener('error', function (event) {
+    if (event) {
+      var target = event.target || event.srcElement;
+      var isElementTarget = target instanceof HTMLScriptElement || target instanceof HTMLLinkElement || target instanceof HTMLImageElement;
+      if (!isElementTarget) return; // js error不再处理
+
+      var url = target.src || target.href;
+      config.sendError({
+        title: target.nodeName,
+        msg: {
+          url: url,
+          eventId: url,
+        },
+        category: 'resource',
+        level: 'error',
+      });
+    }
+  }, true);
+}
+
+var _handleFetchError = function (_window, config) {
+  if (!_window.fetch) return;
+  let _oldFetch = _window.fetch;
+  _window.fetch = function () {
+    return _oldFetch.apply(this, arguments)
+      .then(res => {
+        if (!res.ok) { // True if status is HTTP 2xx
+          config.sendError({
+            title: arguments[0],
+            msg: res,
+            category: 'ajax',
+            level: 'error'
+          });
+        }
+        return res;
+      })
+      .catch(error => {
+        config.sendError({
+          title: arguments[0],
+          msg: {
+            message: error.message,
+            stack: error.stack
+          },
+          category: 'ajax',
+          level: 'error'
+        });
+        throw error;
+      })
+  }
+}
+
+var handleAjaxError = function (_window, config) {
+  var protocol = _window.location.protocol;
+  if (protocol === 'file:') return;
+
+  // 处理fetch
+  _handleFetchError(_window, config);
+
+  // 处理XMLHttpRequest
+  if (!_window.XMLHttpRequest) {
+    return;
+  }
+  var xmlhttp = _window.XMLHttpRequest;
+
+  var _oldSend = xmlhttp.prototype.send;
+  var _handleEvent = function (event) {
+    if (event && event.currentTarget && event.currentTarget.status !== 200) {
+      config.sendError({
+        title: event.target.responseURL,
+        msg: {
+          response: event.target.response,
+          responseURL: event.target.responseURL,
+          status: event.target.status,
+          statusText: event.target.statusText,
+          eventId: event.target.responseURL,
+        },
+        category: 'ajax',
+        level: 'error'
+      });
+    }
+  }
+  xmlhttp.prototype.send = function () {
+    if (this['addEventListener']) {
+      this['addEventListener']('error', _handleEvent);
+      this['addEventListener']('load', _handleEvent);
+      this['addEventListener']('abort', _handleEvent);
+    } else {
+      var _oldStateChange = this['onreadystatechange'];
+      this['onreadystatechange'] = function (event) {
+        if (this.readyState === 4) {
+          _handleEvent(event);
+        }
+        _oldStateChange && _oldStateChange.apply(this, arguments);
+      };
+    }
+    return _oldSend.apply(this, arguments);
+  }
+}
+
+var handleConsoleError = function (_window, config) {
+  if (!_window.console || !_window.console.error) return;
+
+  var _oldConsoleError = _window.console.error;
+  _window.console.error = function () {
+    config.sendError({
+      title: 'consoleError',
+      msg: JSON.stringify(arguments.join(',')),
+      category: 'js',
+      level: 'error'
+    });
+    _oldConsoleError && _oldConsoleError.apply(_window, arguments);
+  };
+}
+
+var handleVueError = function (_window, config) {
+  var vue = _window.Vue;
+  if (!vue || !vue.config) return; // 没有找到vue实例
+  var _oldVueError = vue.config.errorHandler;
+
+  Vue.config.errorHandler = function VueErrorHandler(error, vm, info) {
+    var metaData = {};
+    if (Object.prototype.toString.call(vm) === '[object Object]') {
+      metaData.componentName = vm._isVue ? vm.$options.name || vm.$options._componentTag : vm.name;
+      metaData.propsData = vm.$options.propsData;
+    }
+    config.sendError({
+      title: 'vue Error',
+      msg: {
+        meta: metaData,
+        info,
+      },
+      category: 'js',
+      level: 'error'
+    });
+
+    if (_oldVueError && isFunction(_oldVueError)) {
+      _oldOnError.call(this, error, vm, info);
+    }
+  };
+}
+
+
+
+// 性能监控
+// function handleAddListener(type, fn) {
+//   console.log(fn);
+//   if(window.addEventListener) {
+//     window.addEventListener(type, fn)
+//   } else {
+//     window.attachEvent('on' + type, fn)
+//   }
+// }
+
+// function getTiming() {
+//   try {
+//     var time = window.performance && window.performance.timing;
+//     var navigation = window.performance && window.performance.navigation;
+//     var timingObj = {
+//       redirectNums: 0, // 重定向次数
+//       redirecttime: 0, // 重定向时间
+//       DNSAnalyseTime: 0, // DNS解析时间
+//       TCPHandshakeTime: 0, // TCP完成握手时间
+//       httpRequestResTime: 0, // HTTP请求响应完成时间
+//       domStartLoadingTime: 0, // DOM开始加载前所花费时间
+//       domFinishLoadingTime: 0, // DOM加载完成时间
+//       domAnalysisCompletionTime: 0, // DOM结构解析完成时间
+//       scriptLoadingTime: 0, // 脚本加载时间
+//       onLoadEventTime: 0, // onload事件时间
+//       pageFinishLoadingTime: 0, // 页面完全加载时间
+//     };
+//     // var timingObj = {};
+//     var loadTime = (time.loadEventEnd - time.loadEventStart) / 1000;
+
+//     if(loadTime <= 0) {
+//       setTimeout(function() {
+//         getTiming();
+//       }, 200);
+//       return;
+//     }
+
+//     // timingObj.redirectNums = navigation && navigation.redirectCount;
+//     // timingObj.redirecttime = (time.redirectEnd - time.redirectStart) / 1000;
+//     // timingObj.DNSAnalyseTime = (time.domainLookupEnd - time.domainLookupStart) / 1000;
+//     // timingObj.TCPHandshakeTime = (time.connectEnd - time.connectStart) / 1000;
+
+
+
+//     console.log(time);
+//     timingObj.redirectNums = navigation && navigation.redirectCount;
+//     timingObj.redirecttimeredirecttime = (time.redirectEnd - time.redirectStart) / 1000;
+//     timingObj.DNSAnalyseTime = (time.domainLookupEnd - time.domainLookupStart) / 1000;
+//     timingObj.TCPHandshakeTime = (time.connectEnd - time.connectStart) / 1000;
+//     timingObj.httpRequestResTime = (time.responseEnd - time.requestStart) / 1000;
+//     timingObj.domStartLoadingTime = (time.responseEnd - time.navigationStart) / 1000;
+//     timingObj.domFinishLoadingTime = (time.domComplete - time.domLoading) / 1000;
+//     timingObj.domAnalysisCompletionTime = (time.domInteractive - time.domLoading) / 1000;
+//     timingObj.scriptLoadingTime = (time.domContentLoadedEventEnd - time.domContentLoadedEventStart) / 1000;
+//     timingObj.onLoadEventTime = (time.loadEventEnd - time.loadEventStart) / 1000;
+//     timingObj.pageFinishLoadingTime = (timingObj.redirecttime + timingObj.DNSAnalyseTime + timingObj.TCPHandshakeTime + timingObj.httpRequestResTime + timingObj.domAnalysisCompletionTime + timingObj.domFinishLoadingTime);
+
+//     // for(item in timingObj) {
+//     //   console.log(item + ":" + timingObj[item] + '毫秒(ms)');
+//     // }
+//     return timingObj;
+//     console.log(timingObj);
+//     // options.sendPerformance(performanceObj);
+//     // callback(timingObj);
+//   } catch(e) {
+//     console.log('test:'+timingObj)
+//     console.log('timing:'+performance.timing);
+//   }
+// }
+
+
+
+
+var utils = {
+  isFunction,
+  objectMerge,
+  handleWindowError,
+  handleRejectPromise,
+  handleConsoleError,
+  handleResourceError,
+  handleAjaxError,
+  handleVueError,
+  // handleAddListener,
+};
+
+
+var _window =
+    typeof window !== 'undefined' ?
+    window :
+    typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+var betterJs = _window.betterJs;
+if (!betterJs) {
+    var BetterJs = function () {};
+    var betterJs = new BetterJs();
+    betterJs.init = function (options) {
+        if (options.errorMonitor) {
+            console.log('错误监控执行了');
+            var defaultConfig = {
+                jsError: true,
+                resourceError: true,
+                ajaxError: true,
+                consoleError: false, // console.error默认不处理
+                scriptError: false, // 跨域js错误，默认不处理，因为没有任何信息
+                vue: false,
+                autoReport: true,
+                filters: [], // 过滤器，命中的不上报
+                levels: ['info', 'warning', 'error'],
+                category: ['js', 'resource', 'ajax']
+            }
+            var config = utils.objectMerge(defaultConfig, options);
+
+            if (!config.scriptError) {
+                config.filters.push(function () {
+                    return /^Script error\.?$/.test(arguments[0]);
+                })
+            }
+
+            // 处理过滤器
+            var _oldSendError = config.sendError;
+            config.sendError = function (title, msg, level, category, tags) {
+                try {
+                    var isFilter = config.filters.some(func => {
+                        return utils.isFunction(func) && func.apply(this, arguments);
+                    })
+                    if (isFilter) {
+                        return
+                    }
+                    _oldSendError.apply(this, arguments);
+                    if (config.autoReport) {
+                        return
+                    }
+                    // TODO ajax上报
+                } catch (e) {
+                    _oldSendError({
+                        title: 'betterJs',
+                        msg: e,
+                        category: 'js'
+                    })
+                }
+            }
+
+
+            var _window = typeof window !== 'undefined' ? window :
+                typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+            var addEventListener = _window.addEventListener || _window.attachEvent;
+            if (config.jsError) {
+                utils.handleWindowError(_window, config);
+            }
+            if (config.jsError) {
+                // https://developer.mozilla.org/zh-CN/docs/Web/Events/unhandledrejection
+                utils.handleRejectPromise(_window, config);
+            }
+            if (config.resourceError && addEventListener) {
+                utils.handleResourceError(_window, config);
+            }
+            if (config.ajaxError) {
+                utils.handleAjaxError(_window, config);
+            }
+            if (config.consoleError) {
+                utils.handleConsoleError(_window, config);
+            }
+            if (config.vue) {
+                utils.handleVueError(_window, config);
+            }
+        }
+        if (options.performanceMonitor) {
+            // var performanceObj = {};
+            console.log('性能监控执行了');
+            window.addEventListener('load', () => {
+              var timeInterval = setInterval(() =>{
+                var time = window.performance && window.performance.timing;
+                var navigation = window.performance && window.performance.navigation;
+                var timingObj = {
+                  redirectNums: 0, // 重定向次数
+                  redirecttime: 0, // 重定向时间
+                  DNSAnalyseTime: 0, // DNS解析时间
+                  TCPHandshakeTime: 0, // TCP完成握手时间
+                  httpRequestResTime: 0, // HTTP请求响应完成时间
+                  domStartLoadingTime: 0, // DOM开始加载前所花费时间
+                  domFinishLoadingTime: 0, // DOM加载完成时间
+                  domAnalysisCompletionTime: 0, // DOM结构解析完成时间
+                  scriptLoadingTime: 0, // 脚本加载时间
+                  onLoadEventTime: 0, // onload事件时间
+                  pageFinishLoadingTime: 0, // 页面完全加载时间
+                };
+                var timingObj = {};
+                var loadTime = (time.loadEventEnd - time.loadEventStart) / 1000;
+                if(loadTime>0) {
+                  timingObj.redirectNums = navigation && navigation.redirectCount;
+                  timingObj.redirecttimeredirecttime = (time.redirectEnd - time.redirectStart) / 1000;
+                  timingObj.DNSAnalyseTime = (time.domainLookupEnd - time.domainLookupStart) / 1000;
+                  timingObj.TCPHandshakeTime = (time.connectEnd - time.connectStart) / 1000;
+                  timingObj.httpRequestResTime = (time.responseEnd - time.requestStart) / 1000;
+                  timingObj.domStartLoadingTime = (time.responseEnd - time.navigationStart) / 1000;
+                  timingObj.domFinishLoadingTime = (time.domComplete - time.domLoading) / 1000;
+                  timingObj.domAnalysisCompletionTime = (time.domInteractive - time.domLoading) / 1000;
+                  timingObj.scriptLoadingTime = (time.domContentLoadedEventEnd - time.domContentLoadedEventStart) / 1000;
+                  timingObj.onLoadEventTime = (time.loadEventEnd - time.loadEventStart) / 1000;
+                  timingObj.pageFinishLoadingTime = (timingObj.redirecttime + timingObj.DNSAnalyseTime + timingObj.TCPHandshakeTime + timingObj.httpRequestResTime + timingObj.domAnalysisCompletionTime + timingObj.domFinishLoadingTime);
+                  timingObj.url = window.location.href;
+                  clearInterval(timeInterval);
+                  options.sendPerformance(timingObj);
+                }
+              }, 1000)
+              
+            });
+            // utils.handleAddListener('load', () =>{
+            //   utils.getTiming(function (data) {
+            //     data.url = window.location.href;
+            //     performanceObj = data;
+            //     console.log(data);
+            //     options.sendPerformance(performanceObj);
+            //   })
+            // });
+            
+            //     window.onhashchange = function() { 
+            //         console.log(38383);  
+            //    }
+        }
+    }
+
+    var paramsObj = {};
+    var doc = document;
+    var scripts = doc.scripts;
+    var loaderScript = scripts[scripts.length - 1];
+    // var src="https://kylenxu.github.io/monitor-td/index.js?errorMonitor=true&performanceMonitor=true&projectId=82b12c829722d727e6ca40b8aa166e43&name=test&errorUrl=http://172.30.104.166:8038/api/errors&performanceError=http://172.30.104.166:8038/api/performance&vue=true";
+    loaderScript.src.split('?')[1].split('&').forEach((item)=>{
+        paramsObj[item.split('=')[0]] = item.split('=')[1];
+    });
+    betterJs.init({
+        vue: paramsObj.vue,
+        errorMonitor: paramsObj.errorMonitor,
+        performanceMonitor: paramsObj.performanceMonitor,
+        sendError: function (error) {
+            error.application = window.navigator.userAgent;
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "post",
+                data: {
+                    date: (new Date()).getTime(),
+                    projectId: paramsObj.projectId,
+                    name: paramsObj.name,
+                    eventId: error.msg.eventId || '',
+                    error: JSON.stringify(error),
+                },
+                async: false,
+                url: paramsObj.errorUrl,
+                dataType: "json",
+                success: function (res) {
+                    if (res.ok) {
+                        return res;
+                    }
+                    throw new Error(res.status + ':' + res.statusText);
+                },
+                error: function (res) {
+                    throw new Error(res.status + ':' + res.statusText);
+                }
+            });
+        },
+        sendPerformance: function (performance) {
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "post",
+                data: {
+                    date: (new Date()).getTime(),
+                    projectId: paramsObj.projectId,
+                    name: paramsObj.name,
+                    url: performance.url,
+                    performance: JSON.stringify(performance),
+                },
+                async: false,
+                url: paramsObj.performanceError,
+                dataType: "json",
+                success: function (res) {
+                    if (res.ok) {
+                        return res;
+                    }
+                    throw new Error(res.status + ':' + res.statusText);
+                },
+                error: function (res) {
+                    throw new Error(res.status + ':' + res.statusText);
+                }
+            });
+        },
+    });
+
+}
+
+_window.betterJs = betterJs;
+// module.exports = betterJs;
