@@ -42,38 +42,51 @@ function objectMerge(obj1, obj2) {
 var handleWindowError = function (_window, config) {
   _oldWindowError = _window.onerror;
   _window.onerror = function (msg, url, line, col, error) {
-    console.log(error);
+    // console.log(error);
     var eventId = `${url}${line}${col}`
-    if (error && error.stack) {
-      config.sendError({
-        title: msg,
-        msg: {
-          resourceUrl: url,
-          rowNum: line,
-          colNum: col,
-          info: error,
-          filename: url,
-          eventId: eventId,
-        },
-        category: 'js',
-        level: 'error'
-      });
-    } else if (typeof msg === 'string') {
-      config.sendError({
-        title: msg,
-        msg: {
-          resourceUrl: url,
-          rowNum: line,
-          colNum: col,
-          info: error,
-          userAgent: error.target.userAgent,
-          filename: url,
-          eventId,
-        },
-        category: 'js',
-        level: 'error'
-      });
-    }
+    config.sendError({
+      title: msg,
+      msg: {
+        resourceUrl: url,
+        rowNum: line,
+        colNum: col,
+        info: error,
+        filename: url,
+        eventId: eventId,
+      },
+      category: 'js',
+      level: 'error'
+    });
+    // if (error && error.stack) {
+    //   config.sendError({
+    //     title: msg,
+    //     msg: {
+    //       resourceUrl: url,
+    //       rowNum: line,
+    //       colNum: col,
+    //       info: error,
+    //       filename: url,
+    //       eventId: eventId,
+    //     },
+    //     category: 'js',
+    //     level: 'error'
+    //   });
+    // } else if (typeof msg === 'string') {
+    //   config.sendError({
+    //     title: msg,
+    //     msg: {
+    //       resourceUrl: url,
+    //       rowNum: line,
+    //       colNum: col,
+    //       info: error,
+    //       userAgent: error.target.userAgent,
+    //       filename: url,
+    //       eventId,
+    //     },
+    //     category: 'js',
+    //     level: 'error'
+    //   });
+    // }
     if (_oldWindowError && isFunction(_oldWindowError)) {
       windowError && windowError.apply(window, arguments);
     }
@@ -470,6 +483,7 @@ if (!betterJs) {
     });
     betterJs.init({
         vue: paramsObj.vue,
+        js: paramsObj.js,
         errorMonitor: paramsObj.errorMonitor,
         performanceMonitor: paramsObj.performanceMonitor,
         sendError: function (error) {
